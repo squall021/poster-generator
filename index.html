@@ -1,14 +1,108 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>海報提示詞工作室｜Poster Studio</title><meta name="description" content="填寫課程資料、選擇視覺風格與排版，建立你的海報生成提示詞。"><link rel="stylesheet" href="style.css"></head><body>
-<header><a class="brand" href="./"><span class="brandmark">✳</span><span>海報提示詞工作室<small>POSTER PROMPT STUDIO</small></span></a><div class="toptools"><span id="saveState" class="save-state">● 草稿自動儲存</span><button id="openSaved">已存設定 <span id="savedCount">0</span></button><button id="savePreset" class="dark">儲存設定</button></div></header>
-<main><section class="intro"><div><div class="eyebrow">FROM A LITTLE IDEA TO A GREAT POSTER</div><h1>讓海報，從好提示詞開始<span>。</span></h1><p>整理內容、挑選風格，把你的想法變成清楚的設計指令。</p></div><button id="sample" class="sample">✧ 載入美甲課程範例 <span>↗</span></button></section>
-<div class="workspace"><section class="editor"><div class="mode-section"><div class="section-top"><h2>你想製作什麼？</h2><span class="tag">第一版 · V1.0</span></div><div class="modes" role="group" aria-label="製作模式"><button data-mode="background"><span class="mode-icon">▧</span><strong>只生成底圖</strong><small>預留空間，後續排字</small></button><button data-mode="full"><span class="mode-icon">▤</span><strong>完整海報</strong><small>圖片與文案一起生成</small></button><button data-mode="edit"><span class="mode-icon">✎</span><strong>修改現有海報</strong><small>指定修改，保留其餘</small></button></div><p id="modeHelp" class="hint"></p></div>
-<nav class="tabs" aria-label="編輯步驟"><button data-tab="content" class="active"><b>01</b> 內容資料</button><button data-tab="design"><b>02</b> 視覺風格</button><button data-tab="layout"><b>03</b> 排版設定</button></nav>
-<form id="form" autocomplete="off"><div id="panel-content" class="panel"><div class="panel-heading"><h2>先告訴我們海報的內容</h2><p>只填寫需要的欄位，留空的項目不會出現在提示詞中。</p></div><div id="editFields" hidden><label>要修改的內容 <em>必填</em><textarea name="changes" rows="4" placeholder="例如：移除左上角 TNL；將日期改成 11/15；其他文字不變。"></textarea></label><label>必須保留的內容<textarea name="preserve" rows="2"></textarea></label><div class="note">使用時，請把原始海報圖片與提示詞一起提供給圖片生成工具。下方資料僅用於指定的修改項目。</div></div>
-<div class="grid"><label>海報用途<select name="purpose"><option>課程招生</option><option>活動宣傳</option><option>成果展</option></select></label><label>課程／活動名稱 <em id="titleRequired">必填</em><input name="title" placeholder="例如：一級美甲師檢定衝刺班"></label><label class="wide">副標題<input name="subtitle" placeholder="一句話，說明這堂課最吸引人的地方"></label><label>課程代碼<input name="code" placeholder="例如：115-N01"></label><label>講師<input name="teacher" placeholder="講師姓名或團隊"></label><label class="wide">日期與時間<input name="date" placeholder="例如：115 年 11 月 15 日，每週日 09:00–16:00"></label><label class="wide">上課／活動地點<input name="location" placeholder="場地名稱與地址"></label><label>費用與補助<input name="fee" placeholder="例如：課程費用 3,000 元"></label><label>聯絡電話<input name="phone" type="tel" placeholder="例如：02-1234-5678"></label><label class="wide">主辦單位<input name="organizer" placeholder="請填寫完整單位名稱"></label><label class="wide">報名方式<input name="signup" placeholder="例如：電話報名、線上報名網址"></label><label class="wide">其他文案<textarea name="details" rows="3" placeholder="課程重點、招生對象、名額或必要聲明，每行一項。"></textarea></label></div><button type="button" class="next" data-go="design">接著，選擇視覺風格 <span>→</span></button></div>
-<div id="panel-design" class="panel" hidden><div class="panel-heading"><h2>找到適合的視覺語氣</h2><p>選擇風格後，可再調整配色與主視覺描述。</p></div><div id="styleCards" class="style-cards"></div><div class="grid"><label>主色<div class="color-field"><input type="color" name="main"><span id="mainHex"></span></div></label><label>輔色<div class="color-field"><input type="color" name="accent"><span id="accentHex"></span></div></label><label class="wide">主視覺與圖片元素<textarea name="visual" rows="3" placeholder="例如：凝膠美甲作品、自然手部特寫，避免過多花卉"></textarea></label><label class="wide">裝飾密度<select name="decoration"><option>無裝飾</option><option>少量</option><option>適中</option><option>豐富</option></select></label></div><button type="button" class="next" data-go="layout">接著，安排海報版面 <span>→</span></button></div>
-<div id="panel-layout" class="panel" hidden><div class="panel-heading"><h2>給每個重點，剛好的空間</h2><p>版面示意會跟著調整，實際生成結果由圖片工具決定。</p></div><div class="grid"><label>海報尺寸<select name="size"><option value="A4">A4 · 210 × 297 mm</option><option value="A3">A3 · 297 × 420 mm</option><option value="A1">A1 · 594 × 841 mm</option><option value="square">社群貼文 · 1:1</option><option value="story">限時動態 · 9:16</option></select></label><label>方向<select name="orientation"><option value="portrait">直式</option><option value="landscape">橫式</option></select></label></div><label>版面配置</label><div id="layoutCards" class="layout-cards"></div><div class="checks"><label><input type="checkbox" name="logo">預留 Logo 空間</label><label><input type="checkbox" name="qr">預留 QR code 空間</label></div><label>其他設計要求<textarea name="extra" rows="3" placeholder="例如：裝飾不要太突出、標題不要使用書法字體。"></textarea></label><div class="note">A 系列尺寸用於指定比例與排版目標；正式印刷前仍需確認輸出像素、尺寸與文字內容。</div></div></form>
-<div class="editor-footer"><span>你的想法，隨時可以再調整。</span><button id="reset" class="text-button">重新開始</button></div></section>
-<aside class="output"><section class="preview-card"><div class="section-top"><h2><span class="tiny-dot"></span> 版面示意</h2><span id="sizeTag" class="tag">A4 直式</span></div><div class="preview-stage"><div id="poster" class="poster"><div class="poster-heading"><span class="poster-overline">YOUR NEXT CREATION</span><strong id="posterTitle">把靈感<br>留在這裡</strong><span id="posterSubtitle">為下一張好海報，留一點想像。</span></div><div class="poster-art"><div class="shape one"></div><div class="shape two"></div><div class="shape three"></div><span>✳</span></div><div class="poster-info"><span id="posterInfo">課程資訊預留區</span><div class="fake-line"></div><div class="fake-line short"></div><div class="poster-bottom"><span id="logoSlot">LOGO</span><span id="qrSlot">QR</span></div></div></div></div><p class="preview-caption">僅為區塊與配色示意，不是 AI 生成海報</p></section>
-<section class="prompt-card"><div class="section-top"><h2>你的海報提示詞</h2><span id="charCount" class="tag">0 字</span></div><p id="outputHelp">設定變更時自動更新，也可以直接編輯文字。</p><div id="manualNotice" class="note" hidden>你已手動編輯提示詞。設定變更不會覆蓋文字；按「重新產生」可套用最新設定。</div><textarea id="prompt" aria-label="產生的提示詞" spellcheck="false"></textarea><div class="prompt-actions"><button id="regenerate">↻ 重新產生</button><button id="downloadText" title="下載提示詞文字檔">下載 TXT</button><button id="copy" class="primary">複製提示詞 <span>↗</span></button></div><p class="usage">複製後，貼到你使用的圖片生成工具即可。</p></section></aside></div>
-<footer><span>POSTER PROMPT STUDIO <span class="foot-dot">·</span> 讓每次設計，都有好的開始。</span><span>V1.0</span></footer></main>
-<dialog id="savedDialog"><div class="section-top"><h2>我的設定</h2><button id="closeSaved" aria-label="關閉">✕</button></div><p class="hint">儲存在目前瀏覽器，可匯出 JSON 備份或移到另一台電腦。</p><label>設定名稱<input id="presetName" placeholder="例如：美甲招生・粉紫底圖" maxlength="80"></label><button id="confirmSave" class="primary full-width">儲存目前設定</button><div id="savedList"></div><div class="dialog-actions"><button id="export">匯出目前設定</button><button id="import">匯入設定檔</button><input id="importFile" type="file" accept=".json,application/json" hidden></div></dialog><div id="toast" role="status" aria-live="polite"></div><script type="module" src="app.mjs"></script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>課程海報提示詞工作室｜Poster Studio</title>
+  <meta name="description" content="補助與自辦課程分流，選擇風格與版型示意，產生可直接貼到 ChatGPT 的招生海報提示詞。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./"><span class="brandmark">✳</span><span>海報提示詞工作室<small>POSTER PROMPT STUDIO</small></span></a>
+    <div class="toptools"><span id="saveState" class="save-state">草稿儲存在此瀏覽器</span><button id="openSaved">已存設定 <span id="savedCount">0</span></button><button id="savePreset" class="dark">儲存設定</button></div>
+  </header>
+  <main>
+    <section class="intro">
+      <div><div class="eyebrow">YOUR STYLE. YOUR NEXT COURSE.</div><h1>把下一堂好課，變成好海報<span>。</span></h1><p>選課程類別、填資料、搭配風格與版型，帶著提示詞到 ChatGPT。</p></div>
+      <div class="sample-tools"><select id="sampleChoice" aria-label="範例課程"><option value="self-nails">自辦・美甲作品課程</option><option value="subsidy-denim">補助・牛仔車縫課程</option><option value="self-sprint">自辦・三日美髮課程</option></select><button id="sample">載入範例 ↗</button></div>
+    </section>
+    <div id="migrationBanner" class="note migration" hidden>已保留舊版資料。請補選課程辦理類別；舊手動提示詞可在右側備份區查看。</div>
+    <div class="workspace">
+      <section class="editor">
+        <form id="form" autocomplete="off">
+          <div class="course-section">
+            <div class="section-top"><h2>這堂課由哪一種方式辦理？</h2><span class="tag">V2.1</span></div>
+            <div class="course-types" role="group" aria-label="課程辦理類別">
+              <button type="button" data-type="subsidized"><span class="choice-icon">▤</span><strong>產業人才投資計畫</strong><small>補助課程・自動加入必要註記</small></button>
+              <button type="button" data-type="self"><span class="choice-icon">✧</span><strong>自辦課程</strong><small>自由招生・使用完整版面</small></button>
+            </div>
+            <p id="typeHelp" class="hint">請先選擇，所有風格都可用於兩種辦理類別。</p>
+            <div id="yearField" hidden><label>民國計畫年度 <em>必填</em><input name="planYear" inputmode="numeric" maxlength="4" placeholder="例如 115 或 116"></label><p class="hint">本次註記固定為下半年；計畫年度與上課日期分開設定。</p></div>
+            <details id="requiredNotice" class="notice-details" hidden><summary>查看自動加入的三段註記</summary><dl><dt>左上角</dt><dd>廣告</dd><dt>右上角</dt><dd id="noticeHeader"></dd><dt>正下方</dt><dd id="noticeFooter"></dd></dl><small>文字依提供的須知範本保留，年度由上方欄位帶入。</small></details>
+          </div>
+          <div class="mode-section"><h2>選擇製作方式</h2><div class="modes" role="group" aria-label="製作模式"><button type="button" data-mode="full"><span>▤</span><strong>完整海報</strong><small>圖片與文案一起生成</small></button><button type="button" data-mode="background"><span>▧</span><strong>只生成底圖</strong><small>保留空間，後續排字</small></button><button type="button" data-mode="edit"><span>✎</span><strong>修改現有海報</strong><small>指定修改，沿用原圖</small></button></div><p id="modeHelp" class="hint"></p></div>
+          <nav class="tabs" aria-label="編輯步驟"><button type="button" data-tab="content"><b>01</b> 課程內容</button><button type="button" data-tab="schedule"><b>02</b> 課表費用</button><button type="button" data-tab="design"><b>03</b> 視覺風格</button><button type="button" data-tab="layout"><b>04</b> 排版設定</button></nav>
+          <div id="panel-content" class="panel">
+            <div class="panel-heading"><h2>先把課程說清楚</h2><p>只填需要出現在海報上的資訊；空白欄位不會自行補上內容。</p></div>
+            <div id="editFields" hidden><label>要修改的內容 <em>必填</em><textarea name="changes" rows="3" placeholder="例如：將課程日期改成以下資料；其餘課程文案不變。"></textarea></label><label>必須保留的內容<textarea name="preserve" rows="2"></textarea></label><div class="note">使用時另外上傳原海報。必要註記會依本次類別保留、補齊或移除。</div></div>
+            <div id="basicFields" class="grid"></div>
+            <details class="form-details"><summary>課程特色、招生對象與其他文案</summary><div id="detailFields" class="grid"></div></details>
+            <div class="block-heading"><h3>報名與單位資訊</h3><button type="button" id="saveContact" class="text-button">儲存常用資料</button></div>
+            <label class="profile-picker">套用常用聯絡資料<select id="contactProfile" aria-label="套用常用聯絡資料"><option value="">選擇已儲存資料</option></select></label>
+            <div id="contactFields" class="grid"></div>
+            <button type="button" class="next" data-go="schedule">接著，安排課表與費用 <span>→</span></button>
+          </div>
+          <div id="panel-schedule" class="panel" hidden>
+            <div class="panel-heading"><h2>每一梯、每一天，都清楚呈現</h2><p>完整日期用西元輸入，輸出可切換民國；星期依日期計算。</p></div>
+            <div class="grid"><label>課表形式<select name="scheduleType" aria-label="課表形式"><option value="simple">自由文字／沿用舊版日期</option><option value="weekly">日期區間＋固定每週上課</option><option value="cohorts">多梯次招生</option><option value="days">同一班的分日課程</option></select></label><label>日期顯示<select name="dateDisplay" aria-label="日期顯示"><option value="roc">民國年</option><option value="ad">西元年</option></select></label></div>
+            <div data-schedule="simple"><label>日期與時間<input name="date" placeholder="依正式資料填寫；未提供年份時不自動補入"></label></div>
+            <div data-schedule="weekly" hidden><div class="grid"><label>開始日期<input name="startDate" type="date"></label><label>結束日期<input name="endDate" type="date"></label></div><fieldset class="weekday-set"><legend>每週上課日</legend><div id="weekdayChoices" class="checks"></div></fieldset></div>
+            <div data-schedule="cohorts" hidden><p class="hint">各梯次可跨年。日期請填 YYYY-MM-DD，每行一個。</p><div id="cohortsRows"></div><button type="button" class="add-row" data-add="cohorts">＋ 新增梯次</button></div>
+            <div data-schedule="days" hidden><div id="daysRows"></div><button type="button" class="add-row" data-add="days">＋ 新增課程日</button></div>
+            <div class="block-heading"><h3>共用上課時段</h3><span class="hint">上午、下午可各加一段</span></div><div id="sessionsRows"></div><button type="button" class="add-row" data-add="sessions">＋ 新增時段</button>
+            <div class="grid section-gap"><label>總時數<input name="hours" placeholder="例如：18 小時；不自動計入午休"></label><label>招生名額<input name="capacity" placeholder="例如：16 人"></label></div>
+            <div class="block-heading"><h3>費用與材料</h3><span id="feeTypeLabel" class="tag">先選擇課程類別</span></div>
+            <div id="subsidizedFees" hidden><div id="subsidizedFeeFields" class="grid"></div><p class="hint">依正式資料輸入，不自動套用補助比例或資格。</p></div>
+            <div id="selfFees" hidden><label>費用呈現<select name="feeMode" aria-label="費用呈現"><option value="single">一般課程費用</option><option value="discount">原價＋優惠價</option></select></label><div id="singleFeeFields" class="grid"></div><div id="discountFeeFields" class="grid" hidden></div></div>
+            <div id="materialFields" class="grid section-gap"></div>
+            <details id="legacyFeeBlock" class="form-details"><summary>自訂費用原文／舊版費用資料</summary><label>費用原文<textarea name="fee" rows="2" placeholder="使用分項金額時可留空，避免重複呈現"></textarea></label></details>
+            <button type="button" class="next" data-go="design">接著，選擇視覺風格 <span>→</span></button>
+          </div>
+          <div id="panel-design" class="panel" hidden>
+            <div class="panel-heading"><h2>風格與版型，自由搭配</h2><p>先選配色與材質，再到「排版設定」選擇資訊位置；右側即時顯示組合示意。</p></div>
+            <div class="block-heading"><h3>風格示意</h3><span class="hint">配色・材質・視覺語氣</span></div><div id="styleCards" class="style-cards" role="group" aria-label="視覺風格"></div>
+            <p class="hint style-help">卡片是設計示意，選擇後會把風格描述寫入提示詞，可直接複製使用。</p>
+            <div class="grid section-gap"><label>主色<div class="color-field"><input type="color" name="main" aria-label="主色"><span id="mainHex"></span></div></label><label>輔色<div class="color-field"><input type="color" name="accent" aria-label="輔色"><span id="accentHex"></span></div></label><label class="wide">主視覺與圖片元素<textarea name="visual" rows="3"></textarea><small>描述這堂課要呈現的作品、人物或實作場景；示意圖的圖案只供辨識風格。</small></label><label>裝飾密度<select name="decoration" aria-label="裝飾密度"><option>無裝飾</option><option>少量</option><option>適中</option><option>豐富</option></select></label></div>
+            <div class="own-reference"><label class="reference-toggle"><input type="checkbox" name="useReferenceImage">使用自己的參考圖 <small>選填</small></label><div id="referenceOptions" hidden><label>希望參考的部分<textarea name="referenceNotes" rows="2" placeholder="例如：只參考背景材質和光線，不使用原圖的人物與文字。"></textarea></label><p class="hint">使用時將自己的參考圖與提示詞一起附到 ChatGPT。網站只記錄描述，圖片由你在 ChatGPT 附上。</p></div></div>
+            <div class="block-heading"><h3>作品圖片與標籤</h3><span class="hint">選填</span></div><div id="worksRows"></div><button type="button" class="add-row" data-add="works">＋ 新增作品</button>
+            <button type="button" class="next" data-go="layout">接著，安排版面 <span>→</span></button>
+          </div>
+          <div id="panel-layout" class="panel" hidden>
+            <div class="panel-heading"><h2>讓每一個重點都有位置</h2><p>版型可搭配任一風格；補助課程會額外保留頂部註記和底部須知區。</p></div>
+            <div class="grid"><label>海報尺寸<select name="size" aria-label="海報尺寸"><option value="A4">A4 · 210 × 297 mm</option><option value="A3">A3 · 297 × 420 mm</option><option value="A1">A1 · 594 × 841 mm</option><option value="ratio34">3:4 比例</option><option value="ratio23">2:3 比例</option><option value="square">社群貼文 · 1:1</option><option value="story">限時動態 · 9:16</option></select></label><label>方向<select name="orientation" aria-label="方向"><option value="portrait">直式</option><option value="landscape">橫式</option></select></label></div>
+            <div class="block-heading"><h3>版型示意</h3><span class="hint">標題・主圖・資訊位置</span></div><div id="layoutCards" class="layout-cards" role="group" aria-label="版面配置"></div><p class="hint layout-help">分日卡片依實際填寫的課程日數安排；示意中的 Day 1–3 不會自動增加課程。</p>
+            <label>資訊呈現<select name="detailLevel" aria-label="資訊呈現"><option value="complete">完整資訊，清楚分區</option><option value="compact">簡潔宣傳，降低裝飾密度</option></select></label><p class="hint">兩種呈現都保留已填文案與必要註記；要減少文字請回表單調整。</p>
+            <div class="checks section-gap"><label><input type="checkbox" name="logo">預留 Logo 空間</label><label><input type="checkbox" name="qr">預留 QR Code 空間</label></div>
+            <div class="note">尺寸設定指定構圖比例與紙張目標。生成後仍需確認文字、輸出像素與印刷尺寸。</div>
+          </div>
+          <div class="design-extra"><label>設計補充 <small>可自由修改，課程資料會持續同步</small><textarea name="extra" rows="2" placeholder="例如：減少花卉、讓人物靠右、標題不要使用書法字體。"></textarea></label></div>
+        </form>
+        <div class="editor-footer"><a href="#output" class="text-button">查看提示詞 ↓</a><button id="reset" class="text-button">重新開始</button></div>
+      </section>
+      <aside id="output" class="output">
+        <section class="preview-card"><div class="section-top"><h2>版面示意</h2><span id="sizeTag" class="tag"></span></div>
+          <p id="designSummary" class="design-summary"></p>
+          <div id="previewStage" class="preview-stage"><div id="poster" class="poster"><div id="posterTop" class="poster-top"><span>廣告</span><span id="posterPlan"></span></div><div class="poster-body"><div class="poster-heading"><small>YOUR NEXT COURSE</small><strong id="posterTitle"></strong><span id="posterSubtitle"></span></div><div id="posterArt" class="poster-art"></div><div class="poster-info"><strong id="posterInfo"></strong><div class="fake-line"></div><div class="fake-line short"></div><div class="poster-bottom"><span id="logoSlot">LOGO</span><span id="qrSlot">QR</span></div></div></div><div id="posterFoot" class="poster-foot">完整招生與補助須知預留區</div></div></div>
+          <p id="previewCaption" class="preview-caption">示意配色與資訊位置；實際作品、人物與文字由 ChatGPT 生成。</p>
+        </section>
+        <section class="prompt-card"><div class="section-top"><h2>帶到 ChatGPT 的提示詞</h2><span id="charCount" class="tag">0 字</span></div><p class="hint">隨表單與設計補充更新，正式文字由系統統一組合。</p>
+          <div id="validation" class="validation" role="status" aria-live="polite"></div>
+          <textarea id="prompt" aria-label="產生的提示詞" readonly spellcheck="false" placeholder="選擇課程類別，填寫必要資料後，提示詞會出現在這裡。"></textarea>
+          <div class="prompt-actions"><button id="downloadText">下載 TXT</button><button id="copy" class="primary">複製提示詞 ↗</button></div>
+          <p id="uploadReminder" class="usage"></p>
+          <details id="formalReview" class="review-details"><summary>核對正式文案 <span id="formalCount"></span></summary><dl id="formalList"></dl></details>
+          <details id="noticeReview" class="review-details" hidden><summary>註記全文與位置</summary><textarea id="noticeOutput" aria-label="必要註記清單" readonly rows="6"></textarea><button id="copyNotices" class="small-button">複製註記清單</button><p id="noticeModeHelp" class="hint"></p></details>
+          <details id="legacyBackup" class="review-details" hidden><summary>舊版手動提示詞備份</summary><p class="hint">原文完整保留供參考，不會混入新的正式輸出。</p><textarea id="legacyPrompt" aria-label="舊版手動提示詞" readonly rows="5"></textarea><button id="downloadLegacy" class="small-button">下載舊提示詞</button></details>
+        </section>
+        <section class="checklist-card"><h2>生成後，再看一眼</h2><ul id="checklist"></ul><p>圖像工具可能出現錯字或缺字。必要時使用底圖模式，另行加入精確文字。</p></section>
+      </aside>
+    </div>
+    <footer><span>POSTER PROMPT STUDIO · 草稿儲存在目前瀏覽器，可匯出備份。</span><span>V2.1</span></footer>
+  </main>
+  <dialog id="savedDialog"><div class="section-top"><h2>我的設定</h2><button id="closeSaved" aria-label="關閉設定">✕</button></div><p class="hint">可儲存不同課程，也可匯出 JSON 移到另一台電腦。</p><label>設定名稱<input id="presetName" maxlength="80" placeholder="例如：116 車縫招生"></label><button id="confirmSave" class="primary full-width">儲存目前設定</button><div id="savedList"></div><div class="dialog-actions"><button id="export">匯出目前設定</button><button id="import">匯入 V1／V2 設定</button><input id="importFile" type="file" accept=".json,application/json" hidden></div></dialog>
+  <dialog id="contactDialog"><div class="section-top"><h2>儲存常用聯絡資料</h2><button id="closeContact" aria-label="關閉聯絡資料">✕</button></div><p class="hint">儲存目前的地址、電話、聯絡人、Line ID、單位與報名方式。</p><label>資料名稱<input id="contactName" maxlength="80" placeholder="例如：員林教室"></label><button id="confirmContact" class="primary full-width">儲存聯絡資料</button><div id="contactList"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

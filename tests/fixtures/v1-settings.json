@@ -1,0 +1,15 @@
+{
+  "app": "poster-prompt-studio",
+  "version": 1,
+  "data": {
+    "mode": "full",
+    "title": "舊版匯入測試課程",
+    "date": "115/12/08 09:30–16:30",
+    "fee": "3,000 元",
+    "details": "舊版課程重點原文",
+    "main": "#A18ABC",
+    "accent": "#F3EAF3"
+  },
+  "manual": true,
+  "prompt": "舊版手動提示詞原文\n請完整保留這份備份。"
+}
